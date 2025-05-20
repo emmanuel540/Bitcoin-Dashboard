@@ -1,19 +1,25 @@
 
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import Dashboard from "./Dashboard";
+
 
 const App = () => {
-  const user = localStorage.getItem("user");
+  const isLoggedIn = !!localStorage.getItem("user");
 
   return (
-    <Routes>
-      <Route path="/" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/"
+          element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
+        />
+      </Routes>
+    </Router>
   );
 };
 
