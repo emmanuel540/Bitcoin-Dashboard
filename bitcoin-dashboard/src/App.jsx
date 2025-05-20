@@ -1,14 +1,20 @@
 
 import React from "react";
-import Dashboard from "./components/Dashboard";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
-function App() {
+const App = () => {
+  const user = localStorage.getItem("user");
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
-      <h1 className="text-3xl font-bold mb-6">Bitcoin Dashboard</h1>
-      <Dashboard />
-    </div>
+    <Routes>
+      <Route path="/" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
   );
-}
+};
 
 export default App;
